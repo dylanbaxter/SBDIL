@@ -17,7 +17,7 @@ namespace SBDIR
             _dbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "App_Data"), "SBDIL.db");
         }
 
-        public void InsertLog(string offender)
+        public void InsertLog(Offender offender)
         {
             using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
             {
@@ -38,6 +38,8 @@ namespace SBDIR
             using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
             {
                 connection.CreateTable<Log>();
+                connection.CreateTable<Offender>();
+                connection.CreateTable<Recording>();
             }
         }
 
