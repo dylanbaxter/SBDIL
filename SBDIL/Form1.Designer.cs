@@ -1,4 +1,4 @@
-﻿namespace SBDIR
+﻿namespace SBDIL
 {
     partial class MainForm
     {
@@ -31,7 +31,6 @@
             this.lblDevice = new System.Windows.Forms.Label();
             this.comboMicrophone = new System.Windows.Forms.ComboBox();
             this.cbToggleRecord = new System.Windows.Forms.CheckBox();
-            this.btnPhoneCall = new System.Windows.Forms.Button();
             this.numericThreshold = new System.Windows.Forms.NumericUpDown();
             this.lblThreshold = new System.Windows.Forms.Label();
             this.textboxLog = new System.Windows.Forms.TextBox();
@@ -42,6 +41,9 @@
             this.perpName = new System.Windows.Forms.TextBox();
             this.lblDb = new System.Windows.Forms.Label();
             this.vuMeter = new KA.Audio.VuMeter();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericThreshold)).BeginInit();
             this.groupBoxPerp.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +52,7 @@
             // 
             this.lblDevice.AutoSize = true;
             this.lblDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDevice.Location = new System.Drawing.Point(12, 98);
+            this.lblDevice.Location = new System.Drawing.Point(12, 109);
             this.lblDevice.Name = "lblDevice";
             this.lblDevice.Size = new System.Drawing.Size(66, 13);
             this.lblDevice.TabIndex = 0;
@@ -59,35 +61,26 @@
             // comboMicrophone
             // 
             this.comboMicrophone.FormattingEnabled = true;
-            this.comboMicrophone.Location = new System.Drawing.Point(84, 94);
+            this.comboMicrophone.Location = new System.Drawing.Point(84, 105);
             this.comboMicrophone.Name = "comboMicrophone";
-            this.comboMicrophone.Size = new System.Drawing.Size(284, 21);
+            this.comboMicrophone.Size = new System.Drawing.Size(236, 21);
             this.comboMicrophone.TabIndex = 1;
             // 
             // cbToggleRecord
             // 
             this.cbToggleRecord.Appearance = System.Windows.Forms.Appearance.Button;
             this.cbToggleRecord.AutoSize = true;
-            this.cbToggleRecord.Image = global::SBDIR.Properties.Resources.button_record;
-            this.cbToggleRecord.Location = new System.Drawing.Point(50, 160);
+            this.cbToggleRecord.Image = global::SBDIL.Properties.Resources.button_record;
+            this.cbToggleRecord.Location = new System.Drawing.Point(50, 143);
             this.cbToggleRecord.Name = "cbToggleRecord";
             this.cbToggleRecord.Size = new System.Drawing.Size(28, 28);
             this.cbToggleRecord.TabIndex = 3;
             this.cbToggleRecord.UseVisualStyleBackColor = true;
             this.cbToggleRecord.CheckedChanged += new System.EventHandler(this.cbToggleRecord_CheckedChanged);
             // 
-            // btnPhoneCall
-            // 
-            this.btnPhoneCall.Location = new System.Drawing.Point(3, 406);
-            this.btnPhoneCall.Name = "btnPhoneCall";
-            this.btnPhoneCall.Size = new System.Drawing.Size(75, 23);
-            this.btnPhoneCall.TabIndex = 5;
-            this.btnPhoneCall.Text = "Call the fuzz!";
-            this.btnPhoneCall.UseVisualStyleBackColor = true;
-            // 
             // numericThreshold
             // 
-            this.numericThreshold.Location = new System.Drawing.Point(83, 130);
+            this.numericThreshold.Location = new System.Drawing.Point(386, 106);
             this.numericThreshold.Maximum = new decimal(new int[] {
             0,
             0,
@@ -112,7 +105,7 @@
             // 
             this.lblThreshold.AutoSize = true;
             this.lblThreshold.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThreshold.Location = new System.Drawing.Point(20, 133);
+            this.lblThreshold.Location = new System.Drawing.Point(323, 109);
             this.lblThreshold.Name = "lblThreshold";
             this.lblThreshold.Size = new System.Drawing.Size(57, 13);
             this.lblThreshold.TabIndex = 10;
@@ -120,16 +113,16 @@
             // 
             // textboxLog
             // 
-            this.textboxLog.Location = new System.Drawing.Point(84, 160);
+            this.textboxLog.Location = new System.Drawing.Point(84, 143);
             this.textboxLog.Multiline = true;
             this.textboxLog.Name = "textboxLog";
-            this.textboxLog.Size = new System.Drawing.Size(528, 269);
+            this.textboxLog.Size = new System.Drawing.Size(528, 286);
             this.textboxLog.TabIndex = 11;
             // 
             // lblPerpName
             // 
             this.lblPerpName.AutoSize = true;
-            this.lblPerpName.Location = new System.Drawing.Point(403, 30);
+            this.lblPerpName.Location = new System.Drawing.Point(15, 54);
             this.lblPerpName.Name = "lblPerpName";
             this.lblPerpName.Size = new System.Drawing.Size(38, 13);
             this.lblPerpName.TabIndex = 12;
@@ -137,29 +130,31 @@
             // 
             // groupBoxPerp
             // 
+            this.groupBoxPerp.Controls.Add(this.button2);
+            this.groupBoxPerp.Controls.Add(this.button1);
+            this.groupBoxPerp.Controls.Add(this.comboBox1);
             this.groupBoxPerp.Controls.Add(this.perpAddress);
             this.groupBoxPerp.Controls.Add(this.label1);
             this.groupBoxPerp.Controls.Add(this.perpName);
             this.groupBoxPerp.Controls.Add(this.lblPerpName);
             this.groupBoxPerp.Location = new System.Drawing.Point(15, 12);
             this.groupBoxPerp.Name = "groupBoxPerp";
-            this.groupBoxPerp.Size = new System.Drawing.Size(595, 63);
+            this.groupBoxPerp.Size = new System.Drawing.Size(595, 82);
             this.groupBoxPerp.TabIndex = 13;
             this.groupBoxPerp.TabStop = false;
             this.groupBoxPerp.Text = "Perpetrator Info";
             // 
             // perpAddress
             // 
-            this.perpAddress.Location = new System.Drawing.Point(69, 27);
+            this.perpAddress.Location = new System.Drawing.Point(264, 51);
             this.perpAddress.Name = "perpAddress";
             this.perpAddress.Size = new System.Drawing.Size(313, 20);
             this.perpAddress.TabIndex = 15;
-            this.perpAddress.Text = "6106 S. Arbor Ln.";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 30);
+            this.label1.Location = new System.Drawing.Point(210, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 13);
             this.label1.TabIndex = 14;
@@ -167,16 +162,15 @@
             // 
             // perpName
             // 
-            this.perpName.Location = new System.Drawing.Point(448, 27);
+            this.perpName.Location = new System.Drawing.Point(60, 51);
             this.perpName.Name = "perpName";
             this.perpName.Size = new System.Drawing.Size(131, 20);
             this.perpName.TabIndex = 13;
-            this.perpName.Text = "Scott Martin";
             // 
             // lblDb
             // 
             this.lblDb.AutoSize = true;
-            this.lblDb.Location = new System.Drawing.Point(135, 133);
+            this.lblDb.Location = new System.Drawing.Point(438, 109);
             this.lblDb.Name = "lblDb";
             this.lblDb.Size = new System.Drawing.Size(20, 13);
             this.lblDb.TabIndex = 14;
@@ -202,7 +196,7 @@
             this.vuMeter.LedSpace = 3;
             this.vuMeter.Level = 0;
             this.vuMeter.LevelMax = 100;
-            this.vuMeter.Location = new System.Drawing.Point(161, 130);
+            this.vuMeter.Location = new System.Drawing.Point(464, 106);
             this.vuMeter.MeterScale = KA.Audio.MeterScale.Analog;
             this.vuMeter.Name = "vuMeter";
             this.vuMeter.NeedleColor = System.Drawing.Color.Black;
@@ -225,6 +219,32 @@
             this.vuMeter.VerticalBar = false;
             this.vuMeter.VuText = "VU";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(18, 20);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(425, 21);
+            this.comboBox1.TabIndex = 16;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(449, 18);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(68, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "New";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(524, 17);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(53, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Delete";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,7 +257,6 @@
             this.Controls.Add(this.textboxLog);
             this.Controls.Add(this.lblThreshold);
             this.Controls.Add(this.numericThreshold);
-            this.Controls.Add(this.btnPhoneCall);
             this.Controls.Add(this.cbToggleRecord);
             this.Controls.Add(this.comboMicrophone);
             this.Controls.Add(this.lblDevice);
@@ -245,6 +264,7 @@
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "Scott\'s Barking Dog Insanity Reporter";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericThreshold)).EndInit();
             this.groupBoxPerp.ResumeLayout(false);
             this.groupBoxPerp.PerformLayout();
@@ -259,7 +279,6 @@
         private System.Windows.Forms.ComboBox comboMicrophone;
         //private System.Windows.Forms.ProgressBar progressMicLevel;
         private System.Windows.Forms.CheckBox cbToggleRecord;
-        private System.Windows.Forms.Button btnPhoneCall;
         private System.Windows.Forms.NumericUpDown numericThreshold;
         private System.Windows.Forms.Label lblThreshold;
         private System.Windows.Forms.TextBox textboxLog;
@@ -270,6 +289,9 @@
         private System.Windows.Forms.TextBox perpName;
         private System.Windows.Forms.Label lblDb;
         private KA.Audio.VuMeter vuMeter;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

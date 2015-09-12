@@ -1,4 +1,4 @@
-﻿using SBDIR.Models;
+﻿using SBDIL.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -8,20 +8,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SBDIR
+namespace SBDIL
 {
     public class DataConnection
     {
         public DataConnection()
         {
-            _dbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "App_Data"), "SBDIL.db");
-        }
+            _dbPath = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "db"), "SBDIL.db");
 
-        public void InsertLog(Offender offender)
+            CreateTables();
+            /*
+             * 
+    func tableExists(tableName: String) -> Bool {
+        return db.scalar(
+            "SELECT EXISTS(SELECT name FROM sqlite_master WHERE name = ?)", tableName
+        ) as Bool
+    }
+             * */
+
+        }
+        public void InsertOffender(Offender offender)
         {
             using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
             {
-                connection.Insert(new Log { Offender = offender, TimeStamp = DateTime.Now });
+                connection.Insert(offender);
+            }
+        }
+        public void InsertLog(Log log)
+        {
+            using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
+            {
+                connection.Insert(log);
+            }
+        }
+
+        public void InsertRecording(Recording recording)
+        {
+            using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
+            {
+                connection.Insert(recording);
             }
         }
 
@@ -33,13 +58,21 @@ namespace SBDIR
             }
         }
 
+        public List<Recording> GetRecordings()
+        {
+            using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
+            {
+                return connection.Table<Recording>().ToList();
+            }
+        }
+
         public void CreateTables()
         {
             using (var connection = new SQLiteConnection(_dbPath) { Trace = true })
             {
-                connection.CreateTable<Log>();
-                connection.CreateTable<Offender>();
                 connection.CreateTable<Recording>();
+                connection.CreateTable<Offender>();
+                connection.CreateTable<Log>();
             }
         }
 

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SBDIR
+namespace SBDIL
 {
     public static class Logger
     {
@@ -18,7 +18,7 @@ namespace SBDIR
             if (isConfigured)
                 return;
 
-            var loggerName = "SBDIR";
+            var loggerName = "SBDIL";
 
             var logger = (log4net.Repository.Hierarchy.Logger)log4net.LogManager.GetRepository().GetLogger(loggerName);
             var ilogger = log4net.LogManager.GetRepository().GetLogger(loggerName);

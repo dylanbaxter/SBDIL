@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SBDIR.Properties {
+namespace SBDIL.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,7 +26,7 @@ namespace SBDIR.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\Users\\dab225\\Desktop\\SBDIR\\SBDIR\\App_Data\\SBDIL.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\Users\\dab225\\Desktop\\SBDIL\\SBDIL\\App_Data\\SBDIL.db")]
         public string SBDILConnectionString {
             get {
                 return ((string)(this["SBDILConnectionString"]));

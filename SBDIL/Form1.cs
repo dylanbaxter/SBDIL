@@ -1,5 +1,6 @@
 ﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using SBDIL.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,28 +14,16 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 
-namespace SBDIR
+namespace SBDIL
 {
+    /// <summary>
+    /// Scott Martin 6106 S. Arbor Ln.
+    /// </summary>
     public partial class MainForm : Form
     {
         public MainForm()
         {
             InitializeComponent();
-            Logger.OnExceptionLogged += Log_OnExceptionLogged;
-
-            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
-            var devices = enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active);
-            comboMicrophone.Items.AddRange(devices.ToArray());
-            comboMicrophone.SelectedIndex = 0;
-
-            _uiTimer = new System.Windows.Forms.Timer();
-            _uiTimer.Interval = (250); // .25 sec
-            _uiTimer.Tick += new EventHandler(uiTimer_Tick);
-            _uiTimer.Start();
-
-            Idle();
-
-            Logger.Info("Scott's Barking Dog Insanity Logger started!");
         }
 
         private void Idle()
@@ -47,13 +36,14 @@ namespace SBDIR
 
         private void StartNewWaveFile()
         {
-            _wavFileName = @"C:\Temp\" + DateTime.Now.ToString("yyyyMMddTHHmmss") + ".wav";
+            var fileName = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "wav"), DateTime.Now.ToString("yyyyMMddTHHmmss") + ".wav");
+            _currentRecording = new Recording(fileName);
 
             _waveSource = new WaveIn();
             _waveSource.WaveFormat = new WaveFormat(44100, 1);
             _waveSource.DataAvailable += new EventHandler<WaveInEventArgs>(waveSource_DataAvailable);
             _waveSource.RecordingStopped += new EventHandler<StoppedEventArgs>(waveSource_RecordingStopped);
-            _waveFile = new WaveFileWriter(_wavFileName, _waveSource.WaveFormat);
+            _waveFile = new WaveFileWriter(_currentRecording.FileName, _waveSource.WaveFormat);
             _waveSource.StartRecording();
         }
 
@@ -78,7 +68,7 @@ namespace SBDIR
             if (deleteWavFile)
             {
                 _waveFile.Close();
-                File.Delete(_wavFileName);
+                File.Delete(_currentRecording.FileName);
             }
             _waveSource.StopRecording();
             _ruleTimer.Stop();
@@ -88,8 +78,82 @@ namespace SBDIR
 
         /* Event Handlers */
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Logger.OnExceptionLogged += Log_OnExceptionLogged;
+
+            MMDeviceEnumerator enumerator = new MMDeviceEnumerator();
+            var devices = enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active);
+            comboMicrophone.Items.AddRange(devices.ToArray());
+            comboMicrophone.SelectedIndex = 0;
+
+            _uiTimer = new System.Windows.Forms.Timer();
+            _uiTimer.Interval = (250); // .25 sec
+            _uiTimer.Tick += new EventHandler(uiTimer_Tick);
+            _uiTimer.Start();
+
+            Idle();
+
+            Logger.Info("Scott's Barking Dog Insanity Logger started!");
+
+            //TODO: FIX ME
+            _currentOffender = new Offender();
+            _currentOffender.Address = "6106 S. Arbor Ln.";
+            _currentOffender.Name = "Scott Martin";
+            _dataConnection
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   }
+
+
         /// <summary>
         /// Toggle record mode!
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -100,14 +164,14 @@ namespace SBDIR
             if (_isRecording)
             {
                 Logger.Info("Log started with bark threshold: " + numericThreshold.Value + "dB, listening to address: " + perpAddress.Text + ", owner: " + perpName.Text + ".");
-                cbToggleRecord.Image = SBDIR.Properties.Resources.button_stop;
+                cbToggleRecord.Image = SBDIL.Properties.Resources.button_stop;
                 numericThreshold.Enabled = false;
                 StartRecording();
             }
             else
             {
                 Logger.Info("Log stopped by user.");
-                cbToggleRecord.Image = SBDIR.Properties.Resources.button_record;
+                cbToggleRecord.Image = SBDIL.Properties.Resources.button_record;
                 numericThreshold.Enabled = true;
                 StopRecording();
                 Idle();
@@ -131,7 +195,8 @@ namespace SBDIR
         private void ruleTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             StopRecording();
-            Logger.Info("Wrote Wav file to disk! Scott is clearly in violation of the statute and you now have proof!");
+            Logger.Info("Wrote Wav file to disk! Offender is clearly in violation of the statute and you now have proof!");
+            _dataConnection.InsertRecording(_currentRecording);
             StartRecording();
         }
 
@@ -152,10 +217,9 @@ namespace SBDIR
             // Has enough time elapsed between ticks to start a new wav?
             if (_isRecording && _ticksBetweenBarks >= _maxTicksBetweenBarks)
             {
-                //TODO: Log that we ditched a recording on account of bark timeout period elapsed
-
                 // Stop recording and throw away the current wav file.
                 StopRecording(true);
+                _currentRecording = null;
 
                 // reset tick counter
                 _ticksBetweenBarks = 0;
@@ -196,7 +260,7 @@ namespace SBDIR
             if (levelDb != 0 && levelDb >= numericThreshold.Value)
             {
                 Logger.Info("Heard bark (>-" + numericThreshold.Value + "dB)! Actual level: -" + levelDb + "dB");
-                _dataConnection.InsertLog(perpName.Text);
+                _dataConnection.InsertLog(new Log(_currentOffender, Convert.ToDouble(levelDb)));
 
                 if (_isRecording)
                 {
@@ -226,8 +290,6 @@ namespace SBDIR
             }
         }
 
-        private string _wavFileName;
-
 
 
         // TODO: make this configurable through the interface
@@ -241,7 +303,9 @@ namespace SBDIR
         /// </summary>
         private int _ticksBetweenBarks;
 
-        private DataConnection _dataConnection;
+        private Recording _currentRecording;
+        private Offender _currentOffender;
+        private DataConnection _dataConnection = new DataConnection();
         private bool _isRecording;
         private System.Windows.Forms.Timer _uiTimer;
         private System.Timers.Timer _ruleTimer;

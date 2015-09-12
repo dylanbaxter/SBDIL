@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SBDIR.Models
+namespace SBDIL.Models
 {
     public class Log
     {
@@ -22,6 +22,15 @@ namespace SBDIR.Models
 
         [ManyToOne]
         public Offender Offender { get; set; }
+
+        public Log(Offender offender, double noiseLevel)
+        {
+            Offender = offender;
+            NoiseLevel = noiseLevel;
+            TimeStamp = DateTime.Now;
+        }
+
+        public Log() {}
     }
 
 
@@ -33,6 +42,8 @@ namespace SBDIR.Models
         public string Name { get; set; }
 
         public string Address { get; set; }
+
+        public Offender() { }
     }
 
 
@@ -42,5 +53,12 @@ namespace SBDIR.Models
         public int RecordingId { get; set; }
 
         public string FileName { get; set; }
+
+        public Recording(string fileName)
+        {
+            FileName = fileName;
+        }
+
+        public Recording() { }
     }
 }
